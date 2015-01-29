@@ -41,7 +41,7 @@ function findOrInstall(client, appPath) {
   return new Promise(function(resolve, reject) {
 
     find(client, manifest).then(function(app) {
-      if(app === false) {
+      if (app === false) {
         installApp({ client: client, appPath: appPath }).then(function() {
           resolve(find(client, manifest));
         });
@@ -57,7 +57,7 @@ function findOrInstall(client, appPath) {
 function find(client, manifest) {
   return new Promise(function(resolve, reject) {
     findApp({ client: client, manifest: manifest }).then(function(apps) {
-      if(apps.length === 0) {
+      if (apps.length === 0) {
         resolve(false);
       } else {
         resolve(apps[0]);

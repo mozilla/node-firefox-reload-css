@@ -15,11 +15,11 @@ module.exports = function reloadCSS(options) {
   var app = options.app;
   var appSrcPath = options.srcPath;
 
-  // TODO error if any ^^^ undefined
-
-  console.log(app);
-
   return new Promise(function(resolve, reject) {
+
+    if(client === undefined || app === undefined || appSrcPath === undefined) {
+      reject(new Error('client, app and appSrcPath are required to reload stylesheets'));
+    }
 
     getWebAppsActor(client)
       .then(function(webAppsActor) {
@@ -27,7 +27,7 @@ module.exports = function reloadCSS(options) {
       })
       .then(function(tab) {
         tab.StyleSheets.getStyleSheets(function(err, styleSheets) {
-          if(err) {
+          if (err) {
             reject(err);
           }
           var appOrigin = app.origin;
@@ -59,7 +59,7 @@ function getWebAppsActor(client) {
 function getAppTab(webAppsActor, manifestURL) {
   return new Promise(function(resolve, reject) {
     webAppsActor.getApp(manifestURL, function(err, app) {
-      if(err) {
+      if (err) {
         return reject(err);
       }
       resolve(app);
@@ -77,29 +77,28 @@ function updateStyleSheets(sheets, appOrigin, appSrcPath) {
 
 function updateStyleSheet(sheet, appOrigin, appSrcPath) {
   return new Promise(function(resolve, reject) {
+    // Each sheet has an .href property that looks like
     // sheet.href = 'app://928a5c50-a79e-11e4-995c-db5a47a5c876/css/style.css'
+    // Then the app has an origin that looks like
     // app.origin = app://928a5c50-a79e-11e4-995c-db5a47a5c876
-    // css/style.css
-    // appSrcPath /Users/sole/apps/myApp/
+    // but we actually want the relative path: css/style.css
+    // for relating it to the source path, reading the changed contents from 
+    // disk and updating the style sheet in the running application
 
     var sheetHref = sheet.href;
     var sheetRelPath = sheetHref.replace(appOrigin, '');
     var sheetSrcPath = path.join(appSrcPath, sheetRelPath);
 
-    console.log('>>>>', sheetRelPath);
-    console.log(sheetSrcPath);
-
     fs.readFile(sheetSrcPath, 'utf-8', function(err, cssContents) {
 
-      if(err) {
+      if (err) {
         return reject(err);
       }
 
       sheet.update(cssContents, function(err, res) {
-        if(err) {
+        if (err) {
           return reject(err);
         }
-        console.log('pushed update', sheetRelPath);
         resolve(res);
       });
       
@@ -107,18 +106,4 @@ function updateStyleSheet(sheet, appOrigin, appSrcPath) {
     
   });
 }
-
-// App->Tab
-// Tab -> StyleSheets
-// .getStyleSheets()
-//
-// StyleSheet->update
-
-// local sources
-// css dir
-// remote stylesheets
-// how do you link both <->
-//
-// app.getStylesheets ? eso funciona?
-
 
