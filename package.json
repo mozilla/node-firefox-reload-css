@@ -1,0 +1,43 @@
+{
+  "name": "node-firefox-reload-css",
+  "version": "1.0.0",
+  "description": "Reload CSS on an app running on a Firefox runtime",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp",
+    "test": "gulp test"
+  },
+  "keywords": [
+    "firefox",
+    "developer tools",
+    "b2g",
+    "firefox os",
+    "fxos",
+    "webapps",
+    "css",
+    "stylesheets"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozilla/node-firefox-reload-css.git"
+  },
+  "author": "Mozilla (https://mozilla.org/)",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/mozilla/node-firefox-reload-css/issues"
+  },
+  "homepage": "https://github.com/mozilla/node-firefox-reload-css/",
+  "dependencies": {
+    "es6-promise": "^2.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "node-firefox-build-tools": "^0.2.0",
+    "node-firefox-connect": "^1.0.0",
+    "node-firefox-find-app": "^1.0.0",
+    "node-firefox-install-app": "^1.0.0",
+    "node-firefox-launch-app": "^1.0.1",
+    "node-firefox-start-simulator": "^1.1.0",
+    "watch": "^0.13.0"
+  }
+}
