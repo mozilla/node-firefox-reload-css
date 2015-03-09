@@ -32,12 +32,14 @@
   },
   "devDependencies": {
     "gulp": "^3.8.10",
+    "mockery": "^1.4.0",
     "node-firefox-build-tools": "^0.2.0",
     "node-firefox-connect": "^1.0.0",
     "node-firefox-find-app": "^1.0.0",
     "node-firefox-install-app": "^1.0.0",
     "node-firefox-launch-app": "^1.0.1",
     "node-firefox-start-simulator": "^1.1.0",
+    "nodemock": "^0.3.4",
     "watch": "^0.13.0"
   }
 }
