@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs');
 // See https://github.com/jshint/jshint/issues/1747 for context
 /* global -Promise */
-var Promise = require('es6-Promise').Promise;
+var Promise = require('es6-promise').Promise;
 
 
 module.exports = function reloadCSS(options) {
@@ -82,7 +82,7 @@ function updateStyleSheet(sheet, appOrigin, appSrcPath) {
     // Then the app has an origin that looks like
     // app.origin = app://928a5c50-a79e-11e4-995c-db5a47a5c876
     // but we actually want the relative path: css/style.css
-    // for relating it to the source path, reading the changed contents from 
+    // for relating it to the source path, reading the changed contents from
     // disk and updating the style sheet in the running application
 
     var sheetHref = sheet.href;
@@ -101,9 +101,9 @@ function updateStyleSheet(sheet, appOrigin, appSrcPath) {
         }
         resolve(res);
       });
-      
+
     });
-    
+
   });
 }
 
