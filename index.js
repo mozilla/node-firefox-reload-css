@@ -17,7 +17,7 @@ module.exports = function reloadCSS(options) {
 
   return new Promise(function(resolve, reject) {
 
-    if(client === undefined || app === undefined || appSrcPath === undefined) {
+    if (client === undefined || app === undefined || appSrcPath === undefined) {
       reject(new Error('client, app and appSrcPath are required to reload stylesheets'));
     }
 
