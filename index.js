@@ -26,12 +26,17 @@ module.exports = function reloadCSS(options) {
         return getAppTab(webAppsActor, app.manifestURL);
       })
       .then(function(tab) {
-        tab.StyleSheets.getStyleSheets(function(err, styleSheets) {
-          if (err) {
-            reject(err);
-          }
-          var appOrigin = app.origin;
-          resolve(updateStyleSheets(styleSheets, appOrigin, appSrcPath));
+        // Apparently this method needs to be called in tabs before you can
+        // do anything at all on them. This is a change introduced in simulators
+        // 2.1 onwards.
+        tab.attach(function() {
+          tab.StyleSheets.getStyleSheets(function(err, styleSheets) {
+            if (err) {
+              reject(err);
+            }
+            var appOrigin = app.origin;
+            resolve(updateStyleSheets(styleSheets, appOrigin, appSrcPath));
+          });
         });
       }).catch(function(err) {
         console.error('This happened', err);
